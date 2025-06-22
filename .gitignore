@@ -1,0 +1,156 @@
+# OpenFOAM Project .gitignore
+# ================================
+
+# Time directories (simulation results)
+# Ignore all numeric time directories
+[0-9]*
+[0-9]*.[0-9]*
+[0-9]*e[+-][0-9]*
+
+# Processor directories (parallel decomposition)
+processor*
+
+# Post-processing directories
+postProcessing/
+postProcessing*/
+
+# Backup and temporary directories
+results_backup/
+backup/
+temp/
+tmp/
+
+# Log files
+*.log
+log.*
+*.out
+*.err
+
+# OpenFOAM generated files
+*.foam
+case.foam
+
+# Mesh files (if you want to regenerate)
+constant/polyMesh/
+constant/triSurface/
+
+# Visualization output (generated files)
+visualization_output/
+*.gif
+*.png
+*.jpg
+*.jpeg
+*.mp4
+*.avi
+
+# Python cache and compiled files
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+
+# Virtual environments
+venv/
+env/
+ENV/
+
+# IDE and editor files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+Thumbs.db
+
+# Compiled binaries and libraries
+*.o
+*.a
+*.so
+*.dll
+*.exe
+
+# ParaView files
+*.pvsm
+*.pvd
+*.vtu
+*.vtp
+
+# Temporary files
+*.tmp
+*.temp
+*.bak
+*.backup
+
+# System-specific files
+.directory
+desktop.ini
+
+# Large data files
+*.tar
+*.tar.gz
+*.zip
+*.rar
+*.7z
+
+# Specific OpenFOAM files to ignore
+# (uncomment if you don't want to track these)
+# constant/polyMesh/boundary
+# constant/polyMesh/faces
+# constant/polyMesh/neighbour
+# constant/polyMesh/owner
+# constant/polyMesh/points
+
+# Decomposition files
+constant/*/polyMesh/
+processor*/constant/
+
+# Function object output
+forces.dat
+forceCoeffs.dat
+residuals.dat
+
+# Sample and probe data
+sets/
+surfaces/
+probes/
+
+# Ensight files
+*.case
+*.geo
+*.scl
+*.vec
+
+# VTK files
+VTK/
+*.vtk
+
+# Tecplot files
+*.plt
+*.dat
+
+# CGNS files
+*.cgns
+
+# STL files (if generated)
+# *.stl
+
+# Comments for customization:
+# =============================
+# 
+# To track specific time directories (e.g., initial conditions):
+# !0/
+# !0.orig/
+#
+# To track specific processor directories:
+# !processor0/constant/
+#
+# To track mesh files:
+# !constant/polyMesh/blockMeshDict
+# !constant/polyMesh/boundary
+#
+# To track visualization outputs:
+# !visualization_output/key_results.png
+#
+# To track specific log files:
+# !important_simulation.log

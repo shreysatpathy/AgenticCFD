@@ -1,0 +1,42 @@
+/*--------------------------------*- C++ -*----------------------------------*\
+  =========                 |
+  \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox
+   \\    /   O peration     | Website:  https://openfoam.org
+    \\  /    A nd           | Version:  9
+     \\/     M anipulation  |
+\*---------------------------------------------------------------------------*/
+FoamFile
+{
+    version     2.0;
+    format      ascii;
+    class       dictionary;
+    location    "system";
+    object      setFieldsDict;
+}
+// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
+
+defaultFieldValues
+(
+    volScalarFieldValue alpha.water 0
+);
+
+regions
+(
+    cylinderToCell
+    {
+        p1 (0 0 0);
+        p2 (0 0 0.05);  // Water level at 5cm height
+        radius 0.05;    // 5cm radius
+        // To change pool size:
+        // p2 (0 0 HEIGHT) - water level height in meters
+        // radius RADIUS - pool radius in meters
+        // Example: p2 (0 0 0.08), radius 0.08 for 8cm pool
+        
+        fieldValues
+        (
+            volScalarFieldValue alpha.water 1
+        );
+    }
+);
+
+// ************************************************************************* //

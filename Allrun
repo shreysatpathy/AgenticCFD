@@ -1,0 +1,17 @@
+#!/bin/sh
+cd ${0%/*} || exit 1    # Run from this directory
+
+# Source tutorial run functions
+. $WM_PROJECT_DIR/bin/tools/RunFunctions
+
+# Generate mesh
+runApplication blockMesh
+
+# Set initial water level
+runApplication setFields
+
+# Run the solver
+runApplication compressibleInterFoam
+
+echo "Simulation completed. Use ParaView to visualize results:"
+echo "paraview --data=case.foam"

@@ -1,0 +1,107 @@
+/*--------------------------------*- C++ -*----------------------------------*\
+  =========                 |
+  \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox
+   \\    /   O peration     | Website:  https://openfoam.org
+    \\  /    A nd           | Version:  9
+     \\/     M anipulation  |
+\*---------------------------------------------------------------------------*/
+FoamFile
+{
+    version     2.0;
+    format      ascii;
+    class       dictionary;
+    location    "system";
+    object      controlDict;
+}
+// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
+
+application     compressibleVoF;  // Updated for thermal solver
+
+startFrom       startTime;
+
+startTime       0;
+
+stopAt          endTime;
+
+endTime         1.0;  // Reduced for thermal stability
+
+deltaT          0.0001;  // Smaller initial time step
+
+writeControl    adjustableRunTime;
+
+writeInterval   0.01;
+
+purgeWrite      0;
+
+writeFormat     ascii;
+
+writePrecision  6;
+
+writeCompression off;
+
+timeFormat      general;
+
+timePrecision   6;
+
+runTimeModifiable true;
+
+adjustTimeStep  yes;
+
+maxCo           0.5;   // Reduced for thermal stability
+
+maxAlphaCo      0.5;   // Reduced for thermal stability
+
+maxDeltaT       0.001; // Much smaller max time step for thermal
+
+functions
+{
+    fieldAverage1
+    {
+        type            fieldAverage;
+        libs            ("libfieldFunctionObjects.so");
+        writeControl    writeTime;
+        fields
+        (
+            U
+            {
+                mean        on;
+                prime2Mean  off;
+                base        time;
+            }
+            T
+            {
+                mean        on;
+                prime2Mean  off;
+                base        time;
+            }
+            alpha.water
+            {
+                mean        on;
+                prime2Mean  off;
+                base        time;
+            }
+        );
+    }
+    
+    surfaces
+    {
+        type            surfaces;
+        libs            ("libsampling.so");
+        writeControl    writeTime;
+        surfaceFormat   vtk;
+        fields          (T U alpha.water p);
+        interpolationScheme cellPoint;
+        surfaces
+        (
+            centerPlane
+            {
+                type        cuttingPlane;
+                planeType   pointAndNormal;
+                point       (0 0 0.025);
+                normal      (0 0 1);
+            }
+        );
+    }
+}
+
+// ************************************************************************* //
